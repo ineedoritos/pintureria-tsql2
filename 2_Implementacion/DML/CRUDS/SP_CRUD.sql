@@ -318,6 +318,9 @@ BEGIN
 
     IF @EsValido = 0
         RAISERROR('Error: DUI inválido. Verifique el formato y dígito verificador.', 16, 1);
+        
+    IF EXISTS (SELECT 1 FROM Empleados WHERE DUI = @DUI)
+    RAISERROR('Error: Ya existe un empleado con este DUI.', 16, 1);
 
     -- Validar edad mínima
     IF DATEDIFF(YEAR, @fecha_nacimiento, GETDATE()) < 18
@@ -397,6 +400,40 @@ BEGIN
         ROLLBACK TRANSACTION;
         SELECT 'Error' AS Resultado, ERROR_MESSAGE() AS Mensaje;
     END CATCH;
+END;
+GO
+
+
+CREATE PROCEDURE sp_ObtenerEmpleado
+    @DUI VARCHAR(10) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Si se proporciona un DUI, validar formato
+    IF @DUI IS NOT NULL
+    BEGIN
+        IF @DUI NOT LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
+        BEGIN
+            RAISERROR('Error: Formato de DUI inválido. Debe ser #########', 16, 1);
+            RETURN;
+        END
+
+        -- Verificar existencia
+        IF NOT EXISTS (SELECT 1 FROM Empleados WHERE DUI = @DUI)
+        BEGIN
+            RAISERROR('Error: No existe un empleado con el DUI proporcionado.', 16, 1);
+            RETURN;
+        END
+
+        -- Devolver solo el empleado específico
+        SELECT * FROM Empleados WHERE DUI = @DUI;
+    END
+    ELSE
+    BEGIN
+        -- Devolver todos los empleados
+        SELECT * FROM Empleados;
+    END
 END;
 GO
 

@@ -389,7 +389,7 @@ GO
 -- Prueba 2: sp_GestionarStock - XML con productos válidos
 DECLARE @xml XML = '
     <productos>
-        <producto id="1" cantidad="10"/>
+        <producto id="1" cantidad="440"/>
         <producto id="2" cantidad="-3"/>  -- Reducción de stock válida
     </productos>';
 EXEC sp_GestionarStock @xml;

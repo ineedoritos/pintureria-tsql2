@@ -25,15 +25,15 @@ CREATE TABLE Clientes (
     telefono VARCHAR(8) CHECK (telefono LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
     email VARCHAR(50) UNIQUE CHECK (email LIKE '%_@__%.__%')  -- Formato de email válido
 );
-
--- Tabla Empleados (mayores de 18 años)
+-- Verifica que el DUI sea único y tenga un formato válido y que sea mayor de edad
 CREATE TABLE Empleados (
     id_empleado INT PRIMARY KEY IDENTITY(1,1),
-    DUI VARCHAR(10) UNIQUE CHECK (DUI LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    DUI VARCHAR(10) UNIQUE CHECK (DUI LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-[0-9]'),
     nombre VARCHAR(50) NOT NULL,
     fecha_nacimiento DATE CHECK (DATEDIFF(YEAR, fecha_nacimiento, GETDATE()) >= 18),
-    puesto VARCHAR(20) NOT NULL
+    puesto VARCHAR(20) NOT NULL CHECK (puesto IN ('Pintor', 'Administrador', 'Vendedor', 'Gerente')),
 );
+
 
 -- Tabla Direcciones
 CREATE TABLE Direcciones (
