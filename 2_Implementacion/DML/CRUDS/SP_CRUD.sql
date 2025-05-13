@@ -5,6 +5,7 @@ DROP PROCEDURE IF EXISTS sp_InsertarCliente;
 DROP PROCEDURE IF EXISTS sp_ObtenerCliente;
 DROP PROCEDURE IF EXISTS sp_ActualizarCliente;
 DROP PROCEDURE IF EXISTS sp_EliminarCliente;
+GO
 
 --------------------------
 -- ELIMINAR PROCEDIMIENTOS PRODUCTOS
@@ -13,6 +14,7 @@ DROP PROCEDURE IF EXISTS sp_InsertarProducto;
 DROP PROCEDURE IF EXISTS sp_ObtenerProducto;
 DROP PROCEDURE IF EXISTS sp_ActualizarProducto;
 DROP PROCEDURE IF EXISTS sp_EliminarProducto;
+GO
 
 --------------------------
 -- ELIMINAR PROCEDIMIENTOS EMPLEADOS
@@ -21,9 +23,10 @@ DROP PROCEDURE IF EXISTS sp_InsertarEmpleado;
 DROP PROCEDURE IF EXISTS sp_ObtenerEmpleado; -- This one was missing in your original drops but present in the script
 DROP PROCEDURE IF EXISTS sp_ActualizarEmpleado;
 DROP PROCEDURE IF EXISTS sp_EliminarEmpleado;
+GO
 
 
- DROP PROCEDURE IF EXISTS sp_ValidarDUI;
+
 
 
 -- =============================================
